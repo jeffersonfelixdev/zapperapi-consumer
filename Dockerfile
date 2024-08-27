@@ -5,4 +5,4 @@ ENV WA_INSTANCE=instance_
 ENV EVOLUTION_API_URL=http://localhost:8080
 COPY . .
 RUN npm ci --omit=dev
-CMD node index.js
+CMD ["node", "index.js"]
