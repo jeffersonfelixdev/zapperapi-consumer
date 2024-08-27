@@ -22,7 +22,6 @@ async function consumer() {
       const fullUrl =
         `${url}/wa_instance` +
         (query ? '?' + new URLSearchParams(query).toString() : '')
-      console.log('fullUrl:', fullUrl)
       const res = await fetch(fullUrl, {
         method,
         body,
@@ -32,7 +31,19 @@ async function consumer() {
         },
       })
       const response = await res.json()
-      console.log(id, JSON.stringify(response, null, 2))
+      channel.publish(
+        'events',
+        'instance.response',
+        Buffer.from(
+          JSON.stringify({
+            response: {
+              id,
+              instance: process.env.WA_INSTANCE,
+              response,
+            },
+          }),
+        ),
+      )
       await sleep(15000 + randomInt(15000))
       channel.ack(data)
     }
