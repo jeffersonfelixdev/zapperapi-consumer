@@ -20,9 +20,8 @@ async function consumer() {
         data.content.toString(),
       )
       const fullUrl =
-        `${url}/wa_instance` + query
-          ? new URLSearchParams(query).toString()
-          : ''
+        `${url}/wa_instance` +
+        (query ? new URLSearchParams(query).toString() : '')
       console.log('fullUrl:', fullUrl)
       const res = await fetch(fullUrl, {
         method,
