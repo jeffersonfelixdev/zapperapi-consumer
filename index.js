@@ -16,9 +16,10 @@ async function consumer() {
   await channel.bindQueue(queue, process.env.WA_INSTANCE, 'messages')
   await channel.consume(queue, async data => {
     if (data) {
-      const { id, method, url, body, apikey } = JSON.parse(
+      const { id, method, url, body, apikey, query } = JSON.parse(
         data.content.toString(),
       )
+      console.log(query)
       const res = await fetch(`${url}/wa_instance`.toString(), {
         method,
         body,
