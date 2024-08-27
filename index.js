@@ -19,19 +19,19 @@ async function consumer() {
       const { id, method, url, body, apikey, query } = JSON.parse(
         data.content.toString(),
       )
-      const res = await fetch(
+      const fullUrl =
         `${url}/wa_instance` + query
           ? new URLSearchParams(query).toString()
-          : '',
-        {
-          method,
-          body,
-          headers: {
-            'Content-Type': 'application/json',
-            apikey,
-          },
+          : ''
+      console.log('fullUrl:', fullUrl)
+      const res = await fetch(fullUrl, {
+        method,
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+          apikey,
         },
-      )
+      })
       const response = await res.json()
       console.log(id, JSON.stringify(response, null, 2))
       await sleep(15000 + randomInt(15000))
