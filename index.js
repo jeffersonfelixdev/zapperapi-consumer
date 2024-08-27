@@ -19,7 +19,7 @@ async function consumer() {
       const { id, method, url, body, apikey } = JSON.parse(
         data.content.toString(),
       )
-      const res = await fetch(`${url}/zapperbot`.toString(), {
+      const res = await fetch(`${url}/wa_instance`.toString(), {
         method,
         body,
         headers: {
