@@ -39,7 +39,7 @@ async function consumer() {
             response: {
               id,
               instance: process.env.WA_INSTANCE,
-              response,
+              data: response,
             },
           }),
         ),
