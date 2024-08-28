@@ -4,7 +4,6 @@ import amqp from 'amqplib'
 import { randomInt } from 'node:crypto'
 
 async function consumer() {
-  console.info('Starting Consumer for instance', process.env.WA_INSTANCE)
   const connection = await amqp.connect(process.env.RABBITMQ_URL)
   const channel = await connection.createChannel()
   channel.prefetch(1)
@@ -15,6 +14,7 @@ async function consumer() {
     durable: true,
   })
   await channel.bindQueue(queue, process.env.WA_INSTANCE, 'messages')
+  console.info('Starting Consumer for instance', process.env.WA_INSTANCE)
   await channel.consume(queue, async data => {
     if (data) {
       const { id, method, url, body, apikey, query } = JSON.parse(
@@ -45,7 +45,7 @@ async function consumer() {
           }),
         ),
       )
-      await sleep(15000 + randomInt(15000))
+      await sleep(10000 + randomInt(10000)) // sleep between 10 and 20 seconds
       channel.ack(data)
     }
   })
