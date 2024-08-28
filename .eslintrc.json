@@ -1,3 +1,6 @@
 {
-  "extends": ["@jsfelix/eslint-config"]
+  "extends": ["@jsfelix/eslint-config"],
+  "rules": {
+    "no-console": "off"
+  }
 }

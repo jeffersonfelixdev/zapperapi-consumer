@@ -4,6 +4,7 @@ import amqp from 'amqplib'
 import { randomInt } from 'node:crypto'
 
 async function consumer() {
+  console.info('Starting Consumer for instance', process.env.WA_INSTANCE)
   const connection = await amqp.connect(process.env.RABBITMQ_URL)
   const channel = await connection.createChannel()
   channel.prefetch(1)
